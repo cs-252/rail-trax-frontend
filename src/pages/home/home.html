@@ -1,18 +1,23 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+<ion-content>
+  <div class="login-wrapper" *ngIf="!this.afAuth.auth.currentUser">
+    <div class="login-heading">
+      Let's log you in first
+    </div>
+    <button ion-button icon-start (click)="login('facebook')">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Login with Facebook
     </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+    <button ion-button icon-start color="danger" (click)="login('google')">
+      <ion-icon name="logo-google"></ion-icon>
+      Login with Google
+    </button>
+  </div>
+</ion-content>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content padding *ngIf="this.afAuth.auth.currentUser">
+  <div class="home-wrapper">
+    Hey There {{ this.afAuth.auth.currentUser.displayName }}
+    <button ion-button menuToggle>Menu</button>
+    <button ion-button (click)="this.afAuth.auth.signOut()">Logout</button>
+  </div>
 </ion-content>

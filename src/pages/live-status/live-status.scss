@@ -1,0 +1,47 @@
+page-live-status {
+    .no-padding {
+        padding: 0 !important;
+    }
+    
+    .live-status-wrapper {
+        background: #f1290e;
+        color: white;
+        height: 100%;
+        width: 100vw;
+        padding-top: 10vh;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+    
+    .heading {
+        font-size: 2.5em;
+    }
+
+    .train-no {
+        display: flex;
+        justify-content: center;
+    }
+    .train-no ion-item {
+        width: 70%;
+        color: white !important;
+    }
+    .history-item .train {
+        font-size: 1.2em;
+    }
+    .history-item .meta {
+        text-align: right;
+        font-size: 0.85em;
+    }
+    .history {
+        padding: 0 1em;
+    }
+    .history ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .history ul li {
+        border: 1px solid #f9a99f;
+        padding: 0 0.4em;
+    }
+}

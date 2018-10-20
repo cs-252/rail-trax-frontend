@@ -1,0 +1,35 @@
+<ion-content>
+  <div class="live-status-wrapper" *ngIf="this.afAuth.auth.currentUser">
+    <div class="heading">
+        Enter the train number here
+    </div>
+    <div class="train-no">
+        <ion-item>
+            <ion-label floating>Train Number</ion-label>
+            <ion-input type="text" [(ngModel)]="trainNo"></ion-input>
+        </ion-item>
+    </div>
+    <div style="text-align: center">
+        <button ion-button>Search!</button>
+    </div>
+    <div class="history">
+        <h3>Your search history</h3>
+        <div class="loading" *ngIf="(this.usp.userData | async)?.loading">
+            Loading...
+        </div>
+        <div class="empty" *ngIf="!(this.usp.userData | async)?.loading && (this.usp.userData | async)?.history.length===0">
+            It's lonely here. Let's track some trains right now!
+        </div>
+        <ul>
+            <li class="history-item" *ngFor="let item of (this.usp.userData | async)?.history">
+                <div class="train">
+                    {{ item.value }}
+                </div>
+                <div class="meta">
+                    Searched {{ item.numTimes?item.numTimes:1 }} times, last on {{ item.timestamp | dateFormatter }}
+                </div>
+            </li>
+        </ul>
+    </div>
+  </div>
+</ion-content>

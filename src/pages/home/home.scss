@@ -1,3 +1,18 @@
-page-home {
+.login-wrapper {
+    padding-top: 35vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/assets/imgs/loginbg.jpg');
+    height: 100%;
+    background-position: 55% 55%;
+}
+.login-heading {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 3em;
+    text-align: center;
+}
 
+.home-wrapper {
+    padding-top: 7vh;
 }
