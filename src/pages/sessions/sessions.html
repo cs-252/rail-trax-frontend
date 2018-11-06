@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="current-session" *ngIf="uss.currentSession && uss.sessionData">
+    A session is active. You are currently in the train: {{ uss.sessionData.trainName }} ({{ uss.sessionData.trainNo }}).
+  </div>
+  <div class="buttons">
+    <button ion-button full color="secondary" *ngIf="!uss.currentSession" (click)="startSessionRegistration()">Start my session</button>
+    <button ion-button full color="danger" *ngIf="uss.currentSession" (click)="endSession()">End my session</button>
+  </div>
+  <div class="history">
+    <div class="heading"> Previous sessions</div>
+    <div class="no-history" *ngIf="!((uss.userData | async).sessionHistory?.length)">
+      You have no sessions yet (&gt;o&lt;)
+    </div>
+    <div class="history-list" *ngIf="((uss.userData | async).sessionHistory?.length)">
+      <ion-card *ngFor="let item of uss.userData.getValue().sessionHistory">
+        <ion-card-header>
+          {{ item.name }}
+        </ion-card-header>
+        <ion-card-content>
+          <div class="coins">Coins received: {{ item.coins }}.</div>
+          <div class="date">{{ item.date.seconds*1000 | date }}</div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</div>

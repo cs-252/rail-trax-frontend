@@ -21,7 +21,7 @@
             It's lonely here. Let's track some trains right now!
         </div>
         <ul>
-            <li class="history-item" *ngFor="let item of (this.usp.userData | async)?.history">
+            <li class="history-item" *ngFor="let item of (this.usp.userData | async)?.history; let i = index;" (click)="fromHistory(i)">
                 <div class="train">
                     {{ item.value }}
                 </div>

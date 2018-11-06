@@ -26,7 +26,22 @@
   background: #fff;
   z-index: 1;
   display: flex;
-  
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+
+  ion-icon {
+    font-size: 5vh;
+    margin: auto 0;
+    padding-left: 0.4em;
+  }
+  .title {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1em;
+    font-size: 2em;
+  }
 }
 * { font-family: 'Google Sans';}
 .splash-screen {

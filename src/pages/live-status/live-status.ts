@@ -17,12 +17,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class LiveStatusPage {
   trainNo: string;
+  queried = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public usp: UserStatusProvider,
               public afAuth: AngularFireAuth) {
   }
 
-  ionViewDidLoad() {
-    
+  ionViewDidLoad() { }
+  
+  fromHistory(i) {
+    console.log('Queried from history: '+i);
   }
- 
 }

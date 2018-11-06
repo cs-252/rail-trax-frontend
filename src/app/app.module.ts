@@ -14,7 +14,7 @@ import { NoAuthPageModule } from '../pages/no-auth/no-auth.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UIStateProvider } from '../providers/ui-state/ui-state';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -22,7 +22,12 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { UserStatusProvider } from '../providers/user-status/user-status';
 
 import { PipesModule } from '../pipes/pipes.module';
-import { DateFormatterPipe } from '../pipes/date-formatter/date-formatter';
+
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { SessionsPage } from '../pages/sessions/sessions';
+import { SessionsPageModule } from '../pages/sessions/sessions.module';
+import { GeoProvider } from '../providers/geo/geo';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,9 @@ import { DateFormatterPipe } from '../pipes/date-formatter/date-formatter';
     AngularFireAuthModule,
     LiveStatusPageModule,
     NoAuthPageModule,
-    PipesModule
+    PipesModule,
+    SessionsPageModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp], 
   entryComponents: [
@@ -52,7 +59,8 @@ import { DateFormatterPipe } from '../pipes/date-formatter/date-formatter';
     HomePage,
     ListPage,
     LiveStatusPage,
-    NoAuthPage
+    NoAuthPage,
+    SessionsPage
   ],
   providers: [
     StatusBar,
@@ -61,7 +69,10 @@ import { DateFormatterPipe } from '../pipes/date-formatter/date-formatter';
     UIStateProvider,
     HttpClient,
     AngularFirestore, 
-    UserStatusProvider
+    UserStatusProvider,
+    BackgroundGeolocation,
+    GeoProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

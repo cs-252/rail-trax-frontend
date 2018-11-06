@@ -11,6 +11,10 @@ import { UIStateProvider } from '../providers/ui-state/ui-state';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 
+import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+import { MenuController } from 'ionic-angular';
+import { SessionsPage } from '../pages/sessions/sessions';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -18,18 +22,25 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
-
   pages: Array<{title: string, component: any}>;
+  private bgGeoConfig: BackgroundGeolocationConfig = {
+    desiredAccuracy: 10,
+    stationaryRadius: 20,
+    distanceFilter: 30,
+    debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+    stopOnTerminate: false, // enable this to clear background location settings when the app terminates
+  };
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               public loadingCtrl: LoadingController, public UIState: UIStateProvider, public afAuth: AngularFireAuth,
-              public afs: AngularFirestore) {
+              public afs: AngularFirestore, public menu: MenuController) {
     
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Live Status', component: LiveStatusPage },
-      { title: 'List', component: ListPage }
+      { title: 'Your Sessions', component: SessionsPage },
+      { title: 'List', component: ListPage },
     ];
     this.initializeApp();
   }
@@ -40,11 +51,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.afAuth.authState.subscribe(user => {
+        this.menu.enable(user?true: false);
+        this.menu.swipeEnable(user?true:false);
+        this.UIState.splashScreenDisplayed.next(true);
+        this.UIState.currentTitle.next(!user?'Login':'Home');
+        console.log(user);
+      });
     });
-    setTimeout(() => {
-      this.UIState.splashScreenDisplayed.next(true);
-      this.UIState.currentTitle.next('Home');
-    }, 2000);
   }
 
   openPage(page) { 

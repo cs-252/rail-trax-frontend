@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 
 /*
   Generated class for the UserStatusProvider provider.
@@ -14,7 +15,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class UserStatusProvider {
   public userData = new BehaviorSubject<any>({history: [], loading: true});
   private userAfsSubscription: Subscription = null;
-
+  pnrData = <any>{};
+  sessionData = <any>{};
+  currentSession = false;
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.afAuth.authState.subscribe(user => {
       if(user) {
