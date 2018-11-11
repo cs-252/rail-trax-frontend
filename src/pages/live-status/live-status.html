@@ -10,8 +10,15 @@
         </ion-item>
     </div>
     <div style="text-align: center">
-        <button ion-button>Search!</button>
+        <button ion-button color="secondary" (click)="search()">Search!</button>
     </div>
+    <ion-card class="train-details" *ngIf="queried">
+        <ion-card-content>
+            <div class="header">Now tracking {{(trainData | async)?.name}} ({{(trainData | async)?.number}})</div>
+            <div>Train Location: {{(trainData | async)?.location}}</div>
+            <div>No of feeders: {{(trainData | async)?.feeders}}</div>
+        </ion-card-content>
+    </ion-card>
     <div class="history">
         <h3>Your search history</h3>
         <div class="loading" *ngIf="(this.usp.userData | async)?.loading">
@@ -20,16 +27,16 @@
         <div class="empty" *ngIf="!(this.usp.userData | async)?.loading && (this.usp.userData | async)?.history.length===0">
             It's lonely here. Let's track some trains right now!
         </div>
-        <ul>
-            <li class="history-item" *ngFor="let item of (this.usp.userData | async)?.history; let i = index;" (click)="fromHistory(i)">
-                <div class="train">
-                    {{ item.value }}
-                </div>
-                <div class="meta">
-                    Searched {{ item.numTimes?item.numTimes:1 }} times, last on {{ item.timestamp | dateFormatter }}
-                </div>
-            </li>
-        </ul>
+        <div class="list">
+            <ion-card *ngFor="let item of (this.usp.userData | async)?.history; let i = index;" (click)="fromHistory(i)">
+                <ion-card-header>
+                    {{ item.searchValue }}
+                </ion-card-header>
+                <ion-card-content>
+                    Searched {{ item.frequency?item.frequency:1 }} times, last on {{ item.timestamp | date }}
+                </ion-card-content>
+            </ion-card>
+        </div>
     </div>
   </div>
 </ion-content>

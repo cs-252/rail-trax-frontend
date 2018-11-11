@@ -4,8 +4,6 @@ page-live-status {
     }
     
     .live-status-wrapper {
-        background: #f1290e;
-        color: white;
         height: 100%;
         width: 100vw;
         padding-top: 10vh;
@@ -14,7 +12,7 @@ page-live-status {
     }
     
     .heading {
-        font-size: 2.5em;
+        font-size: 1.75em;
     }
 
     .train-no {
@@ -23,7 +21,6 @@ page-live-status {
     }
     .train-no ion-item {
         width: 70%;
-        color: white !important;
     }
     .history-item .train {
         font-size: 1.2em;
@@ -43,5 +40,9 @@ page-live-status {
     .history ul li {
         border: 1px solid #f9a99f;
         padding: 0.4em;
+    }
+
+    .train-details .header {
+        font-size: 1.2em;
     }
 }

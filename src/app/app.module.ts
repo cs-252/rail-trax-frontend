@@ -28,12 +28,16 @@ import { SessionsPage } from '../pages/sessions/sessions';
 import { SessionsPageModule } from '../pages/sessions/sessions.module';
 import { GeoProvider } from '../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ProfilePage } from '../pages/profile/profile';
+import { AboutPage } from '../pages/about/about';
+import { AboutPageModule } from '../pages/about/about.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { Geolocation } from '@ionic-native/geolocation';
       apiKey: "AIzaSyAMalTNucrc4IthuPtdbbXwnzkW0edIwuo",
       authDomain: "rail-trax.firebaseapp.com",
       databaseURL: "https://rail-trax.firebaseio.com",
-      projectId: "rail-trax",
+      projectId: "rail-trax", 
       storageBucket: "rail-trax.appspot.com",
       messagingSenderId: "972844574063"
     }),
@@ -51,6 +55,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     NoAuthPageModule,
     PipesModule,
     SessionsPageModule,
+    AboutPageModule,
+    ProfilePageModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp], 
@@ -60,7 +66,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     ListPage,
     LiveStatusPage,
     NoAuthPage,
-    SessionsPage
+    SessionsPage,
+    ProfilePage,
+    AboutPage
   ],
   providers: [
     StatusBar,

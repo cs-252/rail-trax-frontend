@@ -11,9 +11,12 @@ import { UIStateProvider } from '../providers/ui-state/ui-state';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+import { BackgroundGeolocationConfig } from '@ionic-native/background-geolocation';
 import { MenuController } from 'ionic-angular';
 import { SessionsPage } from '../pages/sessions/sessions';
+import { UserStatusProvider } from '../providers/user-status/user-status';
+import { ProfilePage } from '../pages/profile/profile';
+import { AboutPage } from '../pages/about/about';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,14 +36,15 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               public loadingCtrl: LoadingController, public UIState: UIStateProvider, public afAuth: AngularFireAuth,
-              public afs: AngularFirestore, public menu: MenuController) {
+              public afs: AngularFirestore, public menu: MenuController, public uss: UserStatusProvider) {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
+      { title: 'Home', component: HomePage }, 
       { title: 'Live Status', component: LiveStatusPage },
       { title: 'Your Sessions', component: SessionsPage },
-      { title: 'List', component: ListPage },
+      { title: 'Your Profile', component: ProfilePage },
+      { title: 'About Us', component: AboutPage }
     ];
     this.initializeApp();
   }

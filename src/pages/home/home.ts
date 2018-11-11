@@ -5,6 +5,10 @@ import { UIStateProvider } from '../../providers/ui-state/ui-state';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { LiveStatusPage } from '../live-status/live-status';
+import { SessionsPage } from '../sessions/sessions';
+import { ProfilePage } from '../profile/profile';
+import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-home',
@@ -47,4 +51,16 @@ export class HomePage {
       }
     });
   }
+
+  navto(str) {
+    if(str==='tracking') {
+      this.navCtrl.setRoot(LiveStatusPage);
+    } else if(str==='sessions') {
+      this.navCtrl.setRoot(SessionsPage);
+    } else if(str==='profile') {
+      this.navCtrl.setRoot(ProfilePage);
+    } else {
+      this.navCtrl.setRoot(AboutPage);
+    }
+  } 
 }

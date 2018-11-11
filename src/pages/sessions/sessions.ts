@@ -166,7 +166,7 @@ export class SessionsPage {
     let loading = this.loadingCtrl.create({content: 'Ending your session...'});
     loading.present();
     let prom = new Promise(resolve => {
-      this.afAuth.auth.currentUser.getIdToken().then(token => {
+      this.afAuth.auth.currentUser.getIdToken(true).then((token: any) => {
         if (!config.dev) {
             let data = {
               firebaseToken: token,

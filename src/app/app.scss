@@ -17,6 +17,33 @@
 
 @import url('https://fonts.googleapis.com/css?family=Mali');
 
+ion-menu {
+  .user-tile {
+    position: relative;
+    padding: 3em 1.5em;
+    color: white;
+    .bg-img {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      filter: brightness(0.7);
+    }
+  }
+  .user-profile-pic {
+    height: 60px;
+    border-radius: 50%;
+  }
+  .user-name {
+    font-size: 2em;
+  }
+  ion-label {
+    height: 2em;
+    display: flex;
+    align-items: center;
+  }
+}
 .root-header {
   position: fixed;
   top: 0;
@@ -28,7 +55,8 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-
+  background: #4BE827;
+  color: white;
   ion-icon {
     font-size: 5vh;
     margin: auto 0;

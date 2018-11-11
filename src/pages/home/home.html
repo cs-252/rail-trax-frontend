@@ -5,7 +5,7 @@
     </div>
     <button ion-button icon-start (click)="login('facebook')">
       <ion-icon name="logo-facebook"></ion-icon>
-      Login with Faceboo
+      Login with Facebook
     </button>
     <button ion-button icon-start color="danger" (click)="login('google')">
       <ion-icon name="logo-google"></ion-icon>
@@ -16,8 +16,24 @@
 
 <ion-content padding *ngIf="this.afAuth.auth.currentUser">
   <div class="home-wrapper">
-    Hey There {{ this.afAuth.auth.currentUser.displayName }}
-    <button ion-button menuToggle>Menu</button>
-    <button ion-button (click)="this.afAuth.auth.signOut()">Logout</button>
+    <div class="banner">You would like to?</div>
+    <div class="tiles">
+      <div class="tile" (click)="navto('tracking')">
+        <img src="/assets/imgs/tile-1.svg" alt="Track a train">
+        <div class="text">Track a train</div>
+      </div>
+      <div class="tile" (click)="navto('sessions')">
+        <img src="/assets/imgs/tile-2.png" alt="Start session">
+        <div class="text">Start a session</div>
+      </div>
+      <div class="tile" (click)="navto('profile')">
+        <img src="/assets/imgs/tile-3.png" alt="View details">
+        <div class="text">View your profile</div>
+      </div>
+      <div class="tile" (click)="navto('about')">
+        <img src="/assets/imgs/tile-4.jpg" alt="about">
+        <div class="text">About</div>
+      </div>
+    </div>
   </div>
 </ion-content>

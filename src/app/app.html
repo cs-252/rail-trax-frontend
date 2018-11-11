@@ -1,9 +1,34 @@
 <ion-menu [content]="content">
   <ion-content>
-    <div style="height: 7vh">Menu</div>
+    <div class="user-tile">
+      <img class="bg-img" src="/assets/imgs/usertilebg.jpg" alt="">
+      <img class="user-profile-pic" src="{{(afAuth.auth.currentUser)?afAuth.auth.currentUser.photoURL: '#'}}" alt="">
+      <div class="user-name">{{(afAuth.auth.currentUser)?afAuth.auth.currentUser.displayName: 'Loading...'}}</div>
+    </div>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <button menuClose ion-item block icon-start (click)="openPage(pages[0])">
+        <ion-icon name="home"></ion-icon>
+        Home
+      </button>
+      <button menuClose ion-item block icon-start (click)="openPage(pages[1])">
+        <ion-icon name="pulse"></ion-icon>
+        Live Status
+      </button>
+      <button menuClose ion-item block icon-start (click)="openPage(pages[2])">
+        <ion-icon name="logo-usd"></ion-icon>
+        Your Sessions
+      </button>
+      <button menuClose ion-item block icon-start (click)="openPage(pages[3])">
+        <ion-icon name="contact"></ion-icon>
+        Your Profile
+      </button>
+      <button menuClose ion-item block icon-start (click)="openPage(pages[4])">
+        <ion-icon name="bug"></ion-icon>
+        About Us
+      </button>
+      <button menuClose ion-item clear icon-start color="danger" (click)="console.log()">
+        <ion-icon name="log-out"></ion-icon>
+        Log out
       </button>
     </ion-list>
   </ion-content>
