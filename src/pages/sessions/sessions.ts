@@ -21,7 +21,7 @@ import { UserStatusProvider } from '../../providers/user-status/user-status';
 })
 export class SessionsPage {
   sessionStep = 0;
-  EXAMPLE_RESPONSE = {"total_passengers": 1, "debit": 3, "train": {"days": [{"code": "MON", "runs": "N"}, {"code": "TUE", "runs": "Y"}, {"code": "WED", "runs": "Y"}, {"code": "THU", "runs": "N"}, {"code": "FRI", "runs": "N"}, {"code": "SAT", "runs": "N"}, {"code": "SUN", "runs": "Y"}], "number": "12512", "name": "RAPTISAGAR EXP", "classes": [{"code": "1A", "name": "FIRST AC", "available": "N"}, {"code": "FC", "name": "FIRST CLASS", "available": "N"}, {"code": "CC", "name": "AC CHAIR CAR", "available": "N"}, {"code": "3E", "name": "3rd AC ECONOMY", "available": "N"}, {"code": "2A", "name": "SECOND AC", "available": "Y"}, {"code": "SL", "name": "SLEEPER CLASS", "available": "Y"}, {"code": "2S", "name": "SECOND SEATING", "available": "N"}, {"code": "3A", "name": "THIRD AC", "available": "Y"}]}, "passengers": [{"no": 1, "current_status": "RLWL/-/10/GN", "booking_status": "RLWL/-/16/GN"}], "to_station": {"code": "CNB", "name": "KANPUR CENTRAL", "lat": 26.4547354, "lng": 80.3506961}, "pnr": "4563504461", "doj": "02-01-2018", "boarding_point": {"code": "BZA", "name": "VIJAYAWADA JN", "lat": 16.5087586, "lng": 80.6185102}, "from_station": {"code": "BZA", "name": "VIJAYAWADA JN", "lat": 16.5087586, "lng": 80.6185102}, "response_code": 200, "journey_class": {"code": "3A", "name": null}, "chart_prepared": false, "reservation_upto": {"code": "CNB", "name": "KANPUR CENTRAL", "lat": 26.4547354, "lng": 80.3506961}}
+  EXAMPLE_RESPONSE = {"total_passengers": 1, "debit": 3, "train": {"days": [{"code": "MON", "runs": "N"}, {"code": "TUE", "runs": "Y"}, {"code": "WED", "runs": "Y"}, {"code": "THU", "runs": "N"}, {"code": "FRI", "runs": "N"}, {"code": "SAT", "runs": "N"}, {"code": "SUN", "runs": "Y"}], "number": "12345", "name": "RAPTISAGAR EXP", "classes": [{"code": "1A", "name": "FIRST AC", "available": "N"}, {"code": "FC", "name": "FIRST CLASS", "available": "N"}, {"code": "CC", "name": "AC CHAIR CAR", "available": "N"}, {"code": "3E", "name": "3rd AC ECONOMY", "available": "N"}, {"code": "2A", "name": "SECOND AC", "available": "Y"}, {"code": "SL", "name": "SLEEPER CLASS", "available": "Y"}, {"code": "2S", "name": "SECOND SEATING", "available": "N"}, {"code": "3A", "name": "THIRD AC", "available": "Y"}]}, "passengers": [{"no": 1, "current_status": "RLWL/-/10/GN", "booking_status": "RLWL/-/16/GN"}], "to_station": {"code": "CNB", "name": "KANPUR CENTRAL", "lat": 26.4547354, "lng": 80.3506961}, "pnr": "4563504461", "doj": "11-10-2018", "boarding_point": {"code": "BZA", "name": "VIJAYAWADA JN", "lat": 16.5087586, "lng": 80.6185102}, "from_station": {"code": "BZA", "name": "VIJAYAWADA JN", "lat": 16.5087586, "lng": 80.6185102}, "response_code": 200, "journey_class": {"code": "3A", "name": null}, "chart_prepared": false, "reservation_upto": {"code": "CNB", "name": "KANPUR CENTRAL", "lat": 26.4547354, "lng": 80.3506961}}
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               public http: HttpClient, public loadingCtrl: LoadingController, public geo: GeoProvider, public afAuth: AngularFireAuth,
               public uss: UserStatusProvider) {
@@ -65,6 +65,7 @@ export class SessionsPage {
               });
               loading.present(); 
               this.setUpSessionData().then(res => {
+                console.log(res);
                 loading.dismiss();
                 if(!res) {
                   let alert = this.alertCtrl.create({
@@ -76,12 +77,11 @@ export class SessionsPage {
                   this.sessionStep = 0;
                   this.uss.pnrData = {};
                 } else {
-                  this.uss.sessionData = res;
                   this.uss.currentSession = true;
                   this.setUpLocationTracking();
                   let alert = this.alertCtrl.create({
                     title: 'Success',
-                    subTitle: 'Your location is now being tracked to provide info about the train: ' + this.uss.sessionData.trainName,
+                    subTitle: 'Your location is now being tracked to provide info about the train: ',
                     buttons: ['Dismiss']
                   });
                   alert.present();
@@ -90,10 +90,12 @@ export class SessionsPage {
               }).catch(err => {
                 let alert = this.alertCtrl.create({
                   title: 'Error',
-                  subTitle: 'Something went wrong and we were not able to contact our servers',
+                  subTitle: 'Something went wrong: ',
                   buttons: ['Dismiss']
                 });
+                console.log(err);
                 alert.present();
+                loading.dismiss();
                 this.sessionStep = 0;
                 this.uss.pnrData = {};
               });
@@ -128,7 +130,7 @@ export class SessionsPage {
 
   setUpSessionData() {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type':  'application/json'})
+      headers: new HttpHeaders({'Content-Type':  'application/json', responseType: 'json'})
     };
     return this.afAuth.auth.currentUser.getIdToken().then(token => {
       let data = {
@@ -136,14 +138,18 @@ export class SessionsPage {
         uid: this.afAuth.auth.currentUser.uid,
         pnrData: this.uss.pnrData
       };
-      if (!config.dev) {
-        return this.http.post('api/setup-session', data, httpOptions).toPromise();
+      if (true) {
+        if(config.useProxy) {
+          return this.http.post(config.proxyHttp+'api/setup-session', data, httpOptions).toPromise();
+        } else {
+          return this.http.post('api/setup-session', data, httpOptions).toPromise();
+        }
       } else {
-        return new Promise(resolve => {
-          setTimeout(() => {
-            resolve({trainName: 'RAPTI SAGAR', trainNo:12512 });
-          }, 1200);
-        })
+        // return new Promise(resolve => {
+        //   setTimeout(() => {
+        //     resolve({trainName: 'RAPTI SAGAR', trainNo:12345 });
+        //   }, 1200);
+        // })
       }
     });
   }
@@ -156,25 +162,29 @@ export class SessionsPage {
   }
 
   endSession() {
-    this.uss.sessionData = {};
+    this.uss.sessionData.next({});
     this.uss.currentSession = false;
     this.uss.pnrData = {};
     this.geo.endTracking();
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type':  'application/json'})
+      headers: new HttpHeaders({'Content-Type':  'application/json', responseType: 'json'})
     };
     let loading = this.loadingCtrl.create({content: 'Ending your session...'});
     loading.present();
     let prom = new Promise(resolve => {
       this.afAuth.auth.currentUser.getIdToken(true).then((token: any) => {
-        if (!config.dev) {
+        if (true) {
             let data = {
               firebaseToken: token,
               uid: this.afAuth.auth.currentUser.uid,
               pnrData: this.uss.pnrData
             };
-            return this.http.post('api/end-session', data, httpOptions).toPromise().then(obj => {
-          });
+            if(config.useProxy) {
+              console.log('here');
+              resolve(this.http.post(config.proxyHttp+'api/end-session', data, httpOptions).toPromise());
+            } else {
+              resolve(this.http.post('api/end-session', data, httpOptions).toPromise());
+            }
         } else {
           return new Promise(() => {
             setTimeout(() => { resolve({message: 'success', coins: 200}) }, 700);
@@ -184,9 +194,11 @@ export class SessionsPage {
     });
     prom.then((res: any) => {
       loading.dismiss();
+      console.log(res);
+
       let alert = this.alertCtrl.create({
         title: 'Success',
-        subTitle: 'Session was successfully ended. You received ' + res.coins + ' coins',
+        subTitle: 'Session was successfully ended. You received ' + res.earnings + ' coins',
         buttons: ['Yahoo']
       });
       alert.present();

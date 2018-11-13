@@ -45,4 +45,16 @@ page-live-status {
     .train-details .header {
         font-size: 1.2em;
     }
+    .map-container {
+        height: 100px !important;
+        width: 100%;
+        overflow: hidden;
+        display: none;
+    }
+    #map {
+        height: 70% !important;
+    }
+    .display-map {
+        display: initial !important;
+    }
 }
