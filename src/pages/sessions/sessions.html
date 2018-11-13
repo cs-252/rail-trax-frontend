@@ -1,17 +1,11 @@
 <div class="wrapper">
-<<<<<<< HEAD
   <ion-card *ngIf="uss.currentSession" style="margin: 2em auto;">
     <ion-card-header> <ion-icon name="information-circle"></ion-icon> Active session</ion-card-header>
     <ion-card-content>
       A session is active.
-      You are currently in the train: {{ (uss.sessionData|async).pnrData.train.name }} ({{ (uss.sessionData|async).pnrData.train.number }}).
+      You are currently in the train: {{ (uss.sessionData|async)?.pnrData?.train?.name }} ({{ (uss.sessionData|async)?.pnrData?.train?.number }}).
     </ion-card-content>
   </ion-card>
-=======
-  <div class="current-session" *ngIf="uss.currentSession">
-    A session is active. You are currently in the train: {{ uss.sessionData.trainName }} ({{ uss.sessionData.trainNo }}).
-  </div>
->>>>>>> c51dd67e176f2b985e806aae9de1822267b77d84
   <div class="buttons">
     <button ion-button full color="secondary" *ngIf="!uss.currentSession" (click)="startSessionRegistration()">Start my session</button>
     <button ion-button full color="danger" *ngIf="uss.currentSession" (click)="endSession()">End my session</button>
