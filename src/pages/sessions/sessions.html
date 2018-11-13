@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="current-session" *ngIf="uss.currentSession && uss.sessionData">
+  <div class="current-session" *ngIf="uss.currentSession">
     A session is active. You are currently in the train: {{ uss.sessionData.trainName }} ({{ uss.sessionData.trainNo }}).
   </div>
   <div class="buttons">
@@ -14,11 +14,11 @@
     <div class="history-list" *ngIf="((uss.userData | async).sessionHistory?.length)">
       <ion-card *ngFor="let item of uss.userData.getValue().sessionHistory">
         <ion-card-header>
-          {{ item.name }}
+          {{ item.train }}
         </ion-card-header>
         <ion-card-content>
           <div class="coins">Coins received: {{ item.coins }}.</div>
-          <div class="date">{{ item.date.seconds*1000 | date }}</div>
+          <div class="date">{{ item.startTime | date }}</div>
         </ion-card-content>
       </ion-card>
     </div>

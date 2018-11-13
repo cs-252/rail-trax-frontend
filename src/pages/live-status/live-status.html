@@ -15,10 +15,13 @@
     <ion-card class="train-details" *ngIf="queried">
         <ion-card-content>
             <div class="header">Now tracking {{(trainData | async)?.name}} ({{(trainData | async)?.number}})</div>
-            <div>Train Location: {{(trainData | async)?.location}}</div>
-            <div>No of feeders: {{(trainData | async)?.feeders}}</div>
+            <div>Train Location: {{(trainData | async)?.location.latitude}}, {{(trainData | async)?.location.longitude}}</div>
+            <div>No of feeders: {{(trainData | async)?.feeders.length}}</div>
         </ion-card-content>
     </ion-card>
+    <div class="map-container" [ngClass]="{'display-map':queried}">
+        <div id="map"></div>
+    </div>
     <div class="history">
         <h3>Your search history</h3>
         <div class="loading" *ngIf="(this.usp.userData | async)?.loading">

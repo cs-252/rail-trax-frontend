@@ -1,18 +1,16 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>profile</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<div class="wrapper">
+  <div class="image">
+    <img src="{{(uss.userData |  async)?.photoURL}}" alt="">
+  </div>
+  <div class="name">
+    {{ (uss.userData |  async)?.name }}
+  </div>
+  <div class="num-sessions">
+    Number of sessions: {{ (uss.userData |  async)?.sessionHistory?.length }}
+  </div>
+  <div class="session-list">
+    <div class="session" *ngFor="let session of (uss.userData |  async)?.sessionHistory">
+      
+    </div>
+  </div>
+</div>
