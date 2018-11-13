@@ -182,7 +182,7 @@ export class SessionsPage {
             } else {
               resolve(this.http.post('api/end-session', data, httpOptions).toPromise());
             }
-        } else {
+        } else { 
           return new Promise(() => {
             setTimeout(() => { resolve({message: 'success', coins: 200}) }, 700);
           });

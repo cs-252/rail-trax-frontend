@@ -8,9 +8,15 @@
   <div class="num-sessions">
     Number of sessions: {{ (uss.userData |  async)?.sessionHistory?.length }}
   </div>
-  <div class="session-list">
-    <div class="session" *ngFor="let session of (uss.userData |  async)?.sessionHistory">
-      
-    </div>
+  <div class="session-list" *ngIf="((uss.userData | async).sessionHistory?.length)">
+    <ion-card class="session" *ngFor="let item of uss.userData.getValue().sessionHistory">
+      <ion-card-header>
+        {{ item.train }}
+      </ion-card-header>
+      <ion-card-content>
+        <div class="coins">Coins received: {{ item.earnings }}.</div>
+        <div class="date">{{ item.startTime | date }}</div>
+      </ion-card-content>
+    </ion-card>
   </div>
 </div>

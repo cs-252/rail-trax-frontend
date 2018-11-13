@@ -1,3 +1,17 @@
 page-profile {
-
+    padding-top: 10vh;
+    .image {
+        width: 100%;
+    }
+    .image img {
+        height: 80px;
+        border-radius: 50%;
+        margin-left: 2em;
+    }
+    .name {
+        font-size: 2em;
+        // color:white;
+        width: 80%;
+        margin: auto;
+    }
 }
